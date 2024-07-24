@@ -1,3 +1,5 @@
+// Author: tischmid (timo42@proton.me)
+
 #include <cstdlib>
 #include <iostream>
 #include <cstdio>
