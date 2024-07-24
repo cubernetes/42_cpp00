@@ -8,6 +8,7 @@
 
 // POSIX whitespace
 #define WS " \t\n\r\f\v"
+#define COL_WIDTH 10
 
 std::string&
 rtrim(std::string& s, const char* t = WS);
@@ -23,3 +24,5 @@ prompt_for_line(std::string prompt, std::string &input);
 
 std::basic_istream<char, std::char_traits<char> >&
 prompt_nonempty_trunc_line(std::string prompt, std::string &input);
+
+std::string str_trunc(std::string s, size_t max_width);

@@ -74,10 +74,16 @@ void Contact::set_darkest_secret(std::string darkest_secret) {
 }
 
 Contact::operator std::string () const {
-	return this->_firstname;
+	return (""
+		+ std::string("First Name     | ") + this->_firstname + "\n"
+		+ std::string("Last Name      | ") + this->_lastname + "\n"
+		+ std::string("Nickname       | ") + this->_nickname + "\n"
+		+ std::string("Phone Number   | ") + this->_phonenumber + "\n"
+		+ std::string("Darkest Secret | ") + this->_darkest_secret + "\n"
+   );
 }
 
 std::ostream& operator<<(std::ostream& os, const Contact& contact) {
-	os << static_cast<std::string>(contact) << std::endl;
+	os << static_cast<std::string>(contact);
 	return os;
 }

@@ -59,3 +59,9 @@ prompt_nonempty_trunc_line(std::string prompt, std::string &input) {
 		}
 	}
 }
+
+std::string str_trunc(std::string s, size_t max_width) {
+	if (s.size() <= max_width)
+		return s;
+	return s.substr(0, max_width - 1) + ".";
+}

@@ -13,7 +13,7 @@ public:
 
 	bool add_contact();
 	bool search_contacts();
-	bool select_contact(int max);
+	bool select_contact(int max, int first);
 private:
 	Contact _contacts[MAX_CONTACTS];
 	int _idx_oldest;

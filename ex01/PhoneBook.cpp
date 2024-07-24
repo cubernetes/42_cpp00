@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cstdio>
+#include <iomanip>
 #include <unistd.h>
 
 #include "utils.hpp"
@@ -38,7 +39,7 @@ bool PhoneBook::add_contact() {
 	return true;
 }
 
-bool PhoneBook::select_contact(int max) {
+bool PhoneBook::select_contact(int max, int first) {
 	std::string input;
 	int idx;
 
@@ -52,6 +53,7 @@ bool PhoneBook::select_contact(int max) {
 			break;
 		std::cout << "The input '" << input << "' is invalid!\n";
 	}
+	idx = (first - idx + MAX_CONTACTS) % MAX_CONTACTS;
 	std::cout << this->_contacts[idx];
 	return true;
 }
@@ -68,13 +70,16 @@ bool PhoneBook::search_contacts() {
 		if (this->_contacts[i].is_initialized()) {
 			empty = false;
 			if (isatty(fileno(stdin)))
-				std::cout << this->_contacts[i].get_firstname() << ", idx: " << idx + 1 << std::endl;
+				std::cout << std::setw(COL_WIDTH) << idx + 1 << "|"
+					<< std::setw(COL_WIDTH) << str_trunc(this->_contacts[i].get_firstname(), COL_WIDTH) << "|"
+					<< std::setw(COL_WIDTH) << str_trunc(this->_contacts[i].get_lastname(), COL_WIDTH) << "|"
+					<< std::setw(COL_WIDTH) << str_trunc(this->_contacts[i].get_nickname(), COL_WIDTH) << std::endl;
 			idx++;
 		}
 		i = (i - 1 + MAX_CONTACTS) % MAX_CONTACTS;
 	} while (i != first);
 	if (!empty)
-		return this->select_contact(idx);
+		return this->select_contact(idx, first);
 	std::cout << "Do you hear the tumbleweeds?\n";
 	return true;
 }
