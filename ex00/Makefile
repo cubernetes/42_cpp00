@@ -1,9 +1,13 @@
+# Author: tischmid (timo42@proton.me)
+
 # config
 NAME := megaphone
+# change to c for C projects and cpp for C++ projects
+# source files must still be specified with their extension
 EXT := cpp
 
 # tools
-CXX ?= c++
+CXX := c++
 RM := /bin/rm -f
 MKDIR := /bin/mkdir -p
 
@@ -46,8 +50,10 @@ ifeq ($(TSAN), 1)
 endif
 
 # sources
+SRC :=
+
 vpath %.$(EXT) .
-SRC := megaphone.cpp
+SRC += megaphone.cpp
 
 # object vars
 OBJ := $(SRC:.$(EXT)=.o)
@@ -88,6 +94,12 @@ run:
 	@echo
 	@PATH=".$${PATH:+:$${PATH}}" && $(NAME) $(ARGS)
 
+valrun:
+	@echo
+	@PATH=".$${PATH:+:$${PATH}}" && valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes $(NAME) $(ARGS)
+
 rerun: re run
 
-.PHONY: all clean fclean re run rerun
+leakcheck: re valrun
+
+.PHONY: all clean fclean re run rerun leakcheck

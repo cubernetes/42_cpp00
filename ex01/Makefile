@@ -72,7 +72,7 @@ DEPS := $(OBJ:.o=.d)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) utils.hpp Contact.hpp PhoneBook.hpp
+$(NAME): $(OBJ)
 	$(CXX) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $@
 
 $(OBJDIR)/%.o: %.$(EXT) | $(OBJDIR)
