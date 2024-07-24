@@ -1,5 +1,10 @@
-a.out
-compile_commands.json
-obj/
+# build artefacts
 megaphone
+a.out
+
+# objects
+obj/
+
+# clangd stuff
 .cache/
+compile_commands.json
